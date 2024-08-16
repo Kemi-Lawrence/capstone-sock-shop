@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sock-shop-ingress
+  namespace: sock-shop
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: www.techniche.com.ng
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: front-end
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - www.techniche.com.ng
+    secretName: sock-shop-tls
+              
