@@ -38,3 +38,6 @@ override.tf.json
 .vscode/
 .idea/
 *.swp
+
+#ignore
+myenv/
