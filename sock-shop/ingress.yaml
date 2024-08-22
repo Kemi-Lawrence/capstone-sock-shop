@@ -3,21 +3,24 @@ kind: Ingress
 metadata:
   name: sock-shop-ingress
   namespace: sock-shop
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-dev"
 spec:
   ingressClassName: nginx
   rules:
-  - host: www.techniche.com.ng
-    http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: front-end
-            port:
-              number: 80
+    - host: www.techniche.com.ng
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: front-end
+                port:
+                  number: 80
+        
   tls:
-  - hosts:
-    - www.techniche.com.ng
-    secretName: sock-shop-tls
-              
+    - hosts:
+        - www.techniche.com.ng
+      secretName: techniche-tls-secret

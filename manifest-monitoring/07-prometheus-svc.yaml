@@ -4,7 +4,7 @@ metadata:
   annotations:
     prometheus.io/scrape: 'true'
   labels:
-    name: prometheus
+    app: prometheus
   name: prometheus
   namespace: monitoring
 spec:

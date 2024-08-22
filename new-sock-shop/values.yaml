@@ -1,0 +1,32 @@
+# Ingress Configuration
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: techniche.com.ng  # Replace with your domain
+      paths:
+        - path: /
+          pathType: Prefix
+  #tls:
+    #- hosts:
+     #   - techniche.com.ng  # Replace with your domain
+      #secretName: your-tls-secret  # Ensure this secret exists for TLS
+      
+
+# Service Configuration
+service:
+  port: 80
+
+# Service Account Configuration
+serviceAccount:
+  create: true
+  name: ""
+
+# Autoscaling Configuration
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80

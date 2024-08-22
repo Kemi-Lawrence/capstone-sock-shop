@@ -3,55 +3,73 @@ provider "aws" {
 }
 
 module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 5.0"
+  source = "terraform-aws-modules/vpc/aws"
 
   name = "sock-shop"
-  cidr = "10.123.0.0/16"
+  cidr = "10.0.0.0/16"
 
   azs             = ["eu-west-2a", "eu-west-2b"]
-  private_subnets = ["10.123.3.0/24", "10.123.4.0/24"]
-  public_subnets  = ["10.123.1.0/24", "10.123.2.0/24"]
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
+  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24"]
 
   enable_nat_gateway = true
-  single_nat_gateway = true
-}
+  single_nat_gateway  = true
+  enable_dns_hostnames = true
 
+  tags = {
+    Terraform = "true"
+    Environment = "dev"
+  }
+}
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"
 
-  cluster_name                   = "sock-shop"
-  cluster_version                = "1.30"
-  cluster_endpoint_public_access = true
+  cluster_name    = "sock-shop"
+  cluster_version = "1.30"
 
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.private_subnets
+  cluster_endpoint_public_access  = true
+
+
+
+  vpc_id                   = module.vpc.vpc_id
+  subnet_ids               = module.vpc.private_subnets
+  
 
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
   }
 
   eks_managed_node_groups = {
-    kemi_node_1 = {
-      min_size     = 1
-      max_size     = 4
-      desired_size = 2
 
-      instance_types = ["t2.medium"]
+    node1 = {
+      name = "node-group-1"
+      instance_types = ["t3.medium"]
+
+      min_size     = 1
+      max_size     = 3
+      desired_size = 2
     }
-    kemi_node_2 = {
-      min_size     = 1
-      max_size     = 4
-      desired_size = 2
 
-      instance_types = ["t2.medium"]
+
+    node2 = {
+      name = "node-group-2"
+      instance_types = ["t3.medium"]
+
+      min_size     = 1
+      max_size     = 2
+      desired_size = 1
     }
   }
 
+  
   enable_cluster_creator_admin_permissions = true
+
 }
+
+
+
 
 
 
