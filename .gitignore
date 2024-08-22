@@ -42,3 +42,4 @@ override.tf.json
 #ignore
 myenv/
 .terraform/
+terraform/.terraform/
