@@ -112,6 +112,7 @@ Capstone/
 ### 2. Apply Kubernetes Manifests:
 - `kubectl apply -f deployment.yaml`
 - `kubectl apply -f service.yaml`
+![kube-metrics](/images/kube-state-metrics.png)
 
 ### 3. Set Up Ingress:
 - `kubectl apply -f ingress.yaml`
@@ -120,6 +121,8 @@ Capstone/
 - `kubectl get pods -n sock-shop`
 - `kubectl get svc -n sock-shop`
 - `kubectl get ingress -n sock-shop`
+
+![sock-shop](/images/www.techniche.com.ng.png)
 
 
 # Monitoring and Alerts
@@ -143,7 +146,8 @@ Capstone/
 
 - `kubectl get pods -n monitoring`
 - `kubectl get svc -n monitoring`
-
+![prometheus-target](/images/prometheus.png)
+![prometheus](/images/prometheus1.png)
 
 # Grafana Setup
 ### 1. Deploy Grafana:
@@ -153,11 +157,13 @@ Capstone/
 
 ### 2. Access Grafana:
 #### Retrieve the Grafana service IP and access it via your browser.
+![grafana-login](/images/grafana.png)
 
 # Logging
 
 ### 1. Set up Prometheus Logging:
 #### Ensure Prometheus is configured to collect and store logs. Use the prometheus.yaml configuration file for setup.
+![grafana-home](/images/grafana-home.png)
 
 ### 2. View Logs:
 #### Logs can be accessed through Prometheus or Grafana dashboards.
