@@ -168,6 +168,7 @@ Capstone/
 
 ### 2. View Logs:
 #### Logs can be accessed through Prometheus or Grafana dashboards.
+![logs](/images/grafana-prometheus.png)
 
 # Alertmanager Setup
 
