@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: weave-shop-tls
+  namespace: sock-shop
+spec:
+  secretName: weave-shop-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: www.techniche.com.ng
+  dnsNames:
+  - www.techniche.com.ng
+  usages:
+  - digital signature
+  - key encipherment

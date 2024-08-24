@@ -5,7 +5,7 @@ metadata:
   namespace: sock-shop
   annotations:
     kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: "letsencrypt-dev"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
   rules:
@@ -23,4 +23,4 @@ spec:
   tls:
     - hosts:
         - www.techniche.com.ng
-      secretName: techniche-tls-secret
+      secretName: weave-shop-tls
