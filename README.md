@@ -208,7 +208,7 @@ Capstone/
 
 # Accessing the Application
 - ### Grafana: Access via the Grafana Ingress URL (e.g., https://grafana.www.techniche.com.ng).
-- ### Socks Shop: Access the Socks Shop application through the Ingress URL defined in your ingress.yaml.
+- ### Socks Shop: Access the Socks Shop application through the Ingress URL defined in your ingress.yaml. (e.g., https://www.techniche.com.ng)
 
 # Cleaning Up
 #### Destroy the Infrastructure:
