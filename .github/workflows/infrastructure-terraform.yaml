@@ -1,0 +1,38 @@
+name: Terraform Infrastructure CI/CD
+
+on:
+  push:
+    branches: [terraform]
+  pull_request:
+    branches: [terraform]
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+
+      - name: Terraform Init
+        id: terraform-init
+        run: terraform init
+
+      - name: Terraform Format
+        id: terraform-format
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        id: terraform-validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        id: terraform-plan
+        run: terraform plan -out=tfplan
+        continue-on-error: true
