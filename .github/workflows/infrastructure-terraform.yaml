@@ -36,3 +36,23 @@ jobs:
         id: terraform-plan
         run: terraform plan -out=tfplan
         continue-on-error: true
+
+      - name: Terraform Plan Review
+        id: terraform-plan-review
+        run: |
+          if [ -f "tfplan" ]; then
+            terraform show -json tfplan | jq . | tee plan.json
+          fi
+
+      - name: Terraform Apply
+        if: github.event_name == 'push' && github.ref == 'refs/heads/terraform'
+        run: terraform apply -auto-approve tfplan
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: eu-west-2  
+
+    outputs:
+      terraform_plan:
+        description: 'Terraform Plan Output'
+        value: ${{ steps.terraform-plan-review.outputs.plan }}
