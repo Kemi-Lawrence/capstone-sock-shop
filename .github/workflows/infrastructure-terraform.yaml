@@ -52,7 +52,3 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: eu-west-2
 
-    outputs:
-      terraform_plan:
-        description: 'Terraform Plan Output'
-        value: ${{ steps.terraform-plan-review.outputs.plan }}
