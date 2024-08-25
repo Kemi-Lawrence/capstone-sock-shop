@@ -58,6 +58,14 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.0
+      
+      - name: Clean Terraform
+        run: rm -rf .terraform* tfplan*
+
+      - name: Terraform Init
+        run: terraform init -backend-config="bucket=sock-shop-bucket-0906" \
+                     -backend-config="region=eu-west-2" \
+                     -backend-config="key=terraform.tfstate"
 
       - name: Terraform Init
         run: terraform init
