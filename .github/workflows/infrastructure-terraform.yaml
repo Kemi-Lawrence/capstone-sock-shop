@@ -88,22 +88,6 @@ jobs:
             terraform show -json tfplan | jq . | tee plan.json
           fi
       
-      - name: Check Existing Resources
-        run: |
-          # Check if KMS Alias exists
-          if aws kms describe-key --key-id alias/eks/sock-shop &> /dev/null; then
-            echo "KMS_ALIAS_EXISTS=true" >> $GITHUB_ENV
-          else
-            echo "KMS_ALIAS_EXISTS=false" >> $GITHUB_ENV
-          fi
-
-          # Check if CloudWatch Log Group exists
-          if aws logs describe-log-groups --log-group-name-prefix /aws/eks/sock-shop/cluster | grep -q "logGroupName"; then
-            echo "LOG_GROUP_EXISTS=true" >> $GITHUB_ENV
-          else
-            echo "LOG_GROUP_EXISTS=false" >> $GITHUB_ENV
-          fi
-
       - name: Terraform Apply
         if: github.event_name == 'push' && github.ref == 'refs/heads/terraform'
         run: terraform apply -auto-approve tfplan
