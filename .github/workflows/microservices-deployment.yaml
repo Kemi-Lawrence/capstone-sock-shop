@@ -61,6 +61,9 @@ jobs:
 
       - name: Apply Kubernetes Manifests
         run: |
-           kubectl apply -f ./sock-shop/
+           kubectl apply -f ./manifest/
+           kubectl get pods
+           kubectl get svc
+           kubectl get namespace
     
 
