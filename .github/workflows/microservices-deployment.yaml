@@ -59,8 +59,8 @@ jobs:
           helm repo update
           kubectl apply -f ./sock-shop/ingress.yaml
 
-      - name: Testing Kubernetes
+      - name: Apply Kubernetes Manifests
         run: |
-           kubectl apply -f ./sock-shop/*
+           kubectl apply -f ./sock-shop/
     
 
