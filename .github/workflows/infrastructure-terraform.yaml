@@ -87,9 +87,15 @@ jobs:
           if [ -f "tfplan" ]; then
             terraform show -json tfplan | jq . | tee plan.json
           fi
+
+      - name: Check if Terraform Plan has changes
+        id: check_changes
+        run: |
+          terraform show -json tfplan | jq '.resource_changes[] | select(.change.actions | index("create") or index("update"))' > /dev/null
+        continue-on-error: true
       
       - name: Terraform Apply
-        if: github.event_name == 'push' && github.ref == 'refs/heads/terraform'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/terraform' && steps.check_changes.outcome == 'success'
         run: terraform apply -auto-approve tfplan
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
