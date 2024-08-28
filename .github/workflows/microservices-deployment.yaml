@@ -69,5 +69,8 @@ jobs:
       - name: Verify helm
         run: helm repo list
 
+      - name: Apply Manifest-Monitoring
+        run: kubectl apply -f /manifest-monitoring/
+
     
 
