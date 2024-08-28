@@ -91,16 +91,19 @@ jobs:
       - name: Check if Terraform Plan has changes
         id: check_changes
         run: |
-          if terraform show -json tfplan | jq -e '.resource_changes | length > 0'; then
+          set -e
+          PLAN=$(terraform show -json tfplan)
+          if echo "$PLAN" | jq -e '.resource_changes | length > 0' > /dev/null; then
             echo "Changes detected in the Terraform plan."
+            echo "continue=true" >> $GITHUB_ENV
           else
             echo "No changes detected."
-            exit 1
+            echo "continue=false" >> $GITHUB_ENV
           fi
-        continue-on-error: true
+          
       
       - name: Terraform Apply
-        if: github.event_name == 'push' && github.ref == 'refs/heads/terraform' && steps.check_changes.outcome == 'success'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/terraform' && env.continue == 'true'
         run: terraform apply -auto-approve tfplan
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
