@@ -84,5 +84,8 @@ jobs:
       - name: Apply Manifest-Monitoring
         run: |
           kubectl apply -f ./manifest-monitoring/
+          kubectl get pods -n manifest-monitoring
+          kubectl get svc -n manifest-monitoring
+          kubectl get namespace
     
 
