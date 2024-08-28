@@ -34,7 +34,7 @@ jobs:
       - name: Install Kubectl
         uses: azure/setup-kubectl@v4
         with:
-          version: '<version>' # default is latest stable
+          version: 'v1.15.0' # default is latest stable
         id: install
 
       - name: Install Helm
@@ -53,7 +53,7 @@ jobs:
 
       - name: Verify Kubernetes Connection
         run: kubectl get nodes
-        
+
       - name: Setup Helm repos and update
         run: |
           helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
