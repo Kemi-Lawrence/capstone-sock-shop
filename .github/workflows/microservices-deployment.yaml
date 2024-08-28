@@ -76,8 +76,13 @@ jobs:
       ##    helm repo add nginx https://kubernetes.github.io/ingress-nginx
       ##    helm repo update nginx
         ##  helm upgrade --install nginx nginx/ingress-nginx --namespace sock-shop --wait
+
+      - name: Delete Existing Prometheus Deployment
+        run: |
+          kubectl delete deployment prometheus-deployment -n monitoring --ignore-not-found
           
       - name: Apply Manifest-Monitoring
-        run: kubectl apply -f ./manifest-monitoring/
+        run: |
+          kubectl apply -f ./manifest-monitoring/
     
 
