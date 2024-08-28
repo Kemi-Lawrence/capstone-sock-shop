@@ -61,7 +61,7 @@ jobs:
 
       - name: Apply Kubernetes Manifests
         run: |
-           kubectl apply -f ./sock-shop/deployment.yaml --dry-run=client
+           kubectl apply -f ./sock-shop/deployment.yaml
            kubectl get pods -n sock-shop
            kubectl get svc -n sock-shop
            kubectl get namespace
@@ -84,11 +84,8 @@ jobs:
         ##  helm upgrade --install nginx nginx/ingress-nginx --namespace sock-shop --wait
           
       - name: Apply Manifest-Monitoring
-        run: kubectl apply -f ./manifest-monitoring --dry-run=client
-
-      - name: Handle Prometheus Deployment
         run: |
-          kubectl apply -f ./manifest-monitoring/prometheus-deployment.yaml --dry-run=client
-          kubectl get deployments -n monitoring
+          kubectl apply --dry-run=client -f ./manifest-monitoring/
+          kubectl apply -f ./manifest-monitoring/
     
 
