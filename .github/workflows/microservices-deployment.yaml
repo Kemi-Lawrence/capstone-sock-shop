@@ -61,6 +61,6 @@ jobs:
 
       - name: Testing Kubernetes
         run: |
-           kubetcl apply -f ./sock-shop
+           kubetcl apply -f ./sock-shop/*
     
 
