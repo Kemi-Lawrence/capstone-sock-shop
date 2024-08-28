@@ -69,11 +69,19 @@ jobs:
       - name: Verify helm
         run: helm repo list
 
-      - name: Deploy Nginx Ingress Controller
+      - name: Install/Upgrade NGINX Ingress Controller
         run: |
-          helm repo add nginx https://kubernetes.github.io/ingress-nginx
-          helm repo update nginx
-          helm upgrade --install nginx nginx/ingress-nginx --namespace sock-shop --wait
+          helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
+            --namespace ingress-nginx --create-namespace \
+            --set controller.ingressClassResource.name=nginx-sock-shop \
+            --set controller.ingressClassResource.controllerValue="k8s.io/ingress-nginx-sock-shop" \
+            --set controller.ingressClass=nginx-sock-shop
+
+    ##  - name: Deploy Nginx Ingress Controller
+     ##   run: |
+      ##    helm repo add nginx https://kubernetes.github.io/ingress-nginx
+      ##    helm repo update nginx
+        ##  helm upgrade --install nginx nginx/ingress-nginx --namespace sock-shop --wait
           
       - name: Apply Manifest-Monitoring
         run: kubectl apply -f ./manifest-monitoring/
